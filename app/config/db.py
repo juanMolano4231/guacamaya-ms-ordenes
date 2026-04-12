@@ -17,19 +17,21 @@ def init_db():
     cur = conn.cursor()
 
     cur.execute("""
-    CREATE TABLE IF NOT EXISTS carts (
+    CREATE TABLE IF NOT EXISTS orders (
         id SERIAL PRIMARY KEY,
         user_id INTEGER NOT NULL,
+        total DECIMAL(10,2) NOT NULL,
+        status VARCHAR(20) CHECK (status IN ('PENDIENTE','PAGADO','ENVIADO','COMPLETADO','CANCELADO')) NOT NULL DEFAULT 'PENDIENTE',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
-    CREATE TABLE IF NOT EXISTS cart_items (
+    CREATE TABLE IF NOT EXISTS order_items (
         id SERIAL PRIMARY KEY,
-        cart_id INTEGER REFERENCES carts(id) ON DELETE CASCADE,
+        order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
         product_id INTEGER NOT NULL,
-        quantity INTEGER NOT NULL CHECK (quantity > 0),
-        price_at_add DECIMAL(10,2) NOT NULL
+        quantity INTEGER NOT NULL,
+        price DECIMAL(10,2) NOT NULL
     );
     """)
 
