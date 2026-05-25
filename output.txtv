@@ -1,0 +1,32 @@
+Sending build context to Docker daemon  3.979kB
+Step 1/8 : FROM python:3.12-alpine
+ ---> e31482fb1094
+Step 2/8 : WORKDIR /app
+ ---> Using cache
+ ---> 3a5b3ac0d2f6
+Step 3/8 : COPY requirements.txt .
+ ---> Using cache
+ ---> fc4828602da1
+Step 4/8 : RUN pip install --no-cache-dir -r requirements.txt
+ ---> Using cache
+ ---> f7b7cc4e0c66
+Step 5/8 : COPY . .
+ ---> 779ff60aca86
+Step 6/8 : EXPOSE 3000
+ ---> Running in 1c85e9c0a3b8
+ ---> Removed intermediate container 1c85e9c0a3b8
+ ---> 8a0a118924bf
+Step 7/8 : CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "3000"]
+ ---> Running in 47ced30a8b48
+ ---> Removed intermediate container 47ced30a8b48
+ ---> a2a31174d610
+Step 8/8 : LABEL com.docker.compose.image.builder=classic
+ ---> Running in d7c3a3ca9450
+ ---> Removed intermediate container d7c3a3ca9450
+ ---> 5153fffcd872
+Successfully built 5153fffcd872
+Successfully tagged ms-ordenes-app:latest
+Attaching to app-1, db-1
+db-1  | 
+db-1  | PostgreSQL Database directory appears to contain a database; Skipping initialization
+db-1  | 
