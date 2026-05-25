@@ -1,6 +1,7 @@
 services:
   app:
     build: .
+    container_name: ms-ordenes
     ports:
       - "8086:3000"
     env_file:
@@ -8,6 +9,9 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - default
+      - guacamaya-net
 
   db:
     image: postgres:16
@@ -24,6 +28,13 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - default
 
 volumes:
   pgdata_ordenes:
+
+networks:
+  default: {}
+  guacamaya-net:
+    external: true
